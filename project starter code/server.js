@@ -31,12 +31,45 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
 
   //! END @TODO1
   
+  app.get("/filteredimage", async (req, res) => {
+    const imageUrl = req.query.image_url;
+  
+    // 1. Validate the image_url query
+    if (!imageUrl) {
+      return res.status(400).send("image_url is required");
+    }
+  
+    try {
+      // 2. Call filterImageFromURL(image_url) to filter the image
+      const filteredImagePath = await filterImageFromURL(imageUrl);
+      
+      // 3. Send the resulting file in the response
+      res.sendFile(filteredImagePath, (err) => {
+        if (err) {
+          res.status(500).send("Error sending the file");
+        }
+  
+        // 4. Deletes any files on the server on finish of the response
+        deleteLocalFiles([filteredImagePath]);
+      });
+  
+    } catch (error) {
+      res.status(422).send("Unable to process the provided image url" + error);
+    }
+  });
+
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async (req, res) => {
-    res.send("try GET /filteredimage?image_url={{}}")
-  } );
-  
+  app.get("/", (req, res) => {
+    const exampleUrl = "https://images.unsplash.com/photo-1451187580459-43490279c0fa";
+    const encodedExampleUrl = encodeURIComponent(exampleUrl);
+
+    const link = `${req.protocol}://${req.get('host')}/filteredimage?image_url=${encodedExampleUrl}`;
+
+    res.send(`try GET /filteredimage?image_url={{}}</br>try <a target="_blank" href="${link}">GET /filteredimage?image_url=${exampleUrl}</a>`);
+  });
+
+
 
   // Start the Server
   app.listen( port, () => {
