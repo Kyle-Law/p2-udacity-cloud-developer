@@ -3,6 +3,31 @@
 You have been hired as a software engineer to develop an application that will help the FBI find missing people. The application will upload images to the FBI cloud database hosted in AWS. This will allow the FBI to run facial recognition software on the images to detect a match. You will be developing a NodeJS server and deploying it on AWS Elastic Beanstalk.
 You will build upon the application we've developed during the lessons in this course. You'll complete a REST API endpoint in a backend service that processes incoming image URLs.
 
+## Local Development
+
+To run the application locally, follow these steps:
+
+### 1. Clone the Repository:
+
+```bash
+git clone git@github.com:Kyle-Law/p2-udacity-cloud-developer.git
+cd p2-udacity-cloud-developer
+```
+
+### 2. Install Dependencies:
+
+Ensure you have Node.js installed on your machine. Then: `npm install`
+
+### 3. Start the Development Server:
+
+`npm run dev`
+
+The above command uses nodemon to start the server, which will restart automatically upon detecting any code changes.
+
+### 4. Access the Application:
+
+Open a browser and navigate to: `http://localhost:8082/`
+
 ## Deployment
 
 The application is deployed on AWS using the following services:
@@ -51,3 +76,7 @@ Successful URL responses should have a 200 code. Ensure that you include error c
 ## License
 
 [License](LICENSE.txt)
+
+```
+
+```

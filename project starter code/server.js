@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
+import { URL } from 'url';  // Import the URL module for validation
 
 
 
@@ -34,34 +35,39 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
   app.get("/filteredimage", async (req, res) => {
     const imageUrl = req.query.image_url;
   
-    // 1. Validate the image_url query
     if (!imageUrl) {
       return res.status(400).send("image_url is required");
     }
   
+    // Check if the provided string is a valid URL
     try {
-      // 2. Call filterImageFromURL(image_url) to filter the image
+      new URL(imageUrl);
+    } catch (e) {
+      return res.status(400).send("Invalid image_url provided");
+    }
+  
+    try {
       const filteredImagePath = await filterImageFromURL(imageUrl);
       
-      // 3. Send the resulting file in the response
       res.sendFile(filteredImagePath, (err) => {
         if (err) {
-          res.status(500).send("Error sending the file");
+          console.error("Error sending the file:", err);  // Log the error for debugging
+          return res.status(500).send("Error sending the file");
         }
-  
-        // 4. Deletes any files on the server on finish of the response
+    
         deleteLocalFiles([filteredImagePath]);
       });
   
     } catch (error) {
-      res.status(422).send("Unable to process the provided image url" + error);
+      console.error("Error processing the image:", error);  // Log the error for debugging
+      return res.status(422).send(`Unable to process the provided image url. Error: ${error.message}`);
     }
   });
 
   // Root Endpoint
   // Displays a simple message to the user
   app.get("/", (req, res) => {
-    const exampleUrl = "https://images.unsplash.com/photo-1451187580459-43490279c0fa";
+    const exampleUrl = "https://upload.wikimedia.org/wikipedia/commons/b/bd/Golden_tabby_and_white_kitten_n01.jpg";
     const encodedExampleUrl = encodeURIComponent(exampleUrl);
 
     const link = `${req.protocol}://${req.get('host')}/filteredimage?image_url=${encodedExampleUrl}`;
