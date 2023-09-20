@@ -15,6 +15,27 @@ The application is deployed on AWS using the following services:
 
 - **Distribution URL**: [https://d1ab9ie6mra76b.cloudfront.net](https://d1ab9ie6mra76b.cloudfront.net)
 
+### Deployment steps
+
+#### 1. Setup AWS CLI v2
+
+- **Download and Install**:
+  Download the AWS CLI version 2 from the official AWS site for your specific operating system.
+
+- **Configure AWS CLI**:
+  After installation, open your terminal or command prompt and run: `aws configure`, You will be prompted to enter your AWS credentials, default region, and default output format.
+
+#### 2. Install the Elastic Beanstalk CLI (EB CLI)
+
+If you haven't installed the EB CLI, follow the instructions on the AWS documentation to install it.
+
+#### 3. Initialize Your Application for EB
+
+1. `eb init`
+2. `eb create <env_name>`
+3. For further deployment, run `eb deploy`
+4. `eb open` to open app on browser
+
 ## Project Instructions
 
 To complete this project, I have:
