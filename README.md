@@ -62,6 +62,13 @@ If you haven't installed the EB CLI, follow the instructions on the AWS document
 3. For further deployment, run `eb deploy`
 4. `eb open` to open app on browser
 
+#### 4. Setup CloudFront Distribution
+
+1. CloudFront > Create Distribution
+2. Select the corresponding Elastic Load Balancer of EB as Origin Domain
+3. Under `Cache key and origin requests` > Check `legacy cache settings`, select `All` from Query strings dropdown
+4. Keep the rests as defaults
+
 ## Project Instructions
 
 To complete this project, I have:
