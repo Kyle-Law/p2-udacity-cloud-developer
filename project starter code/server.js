@@ -68,12 +68,12 @@ import { URL } from 'url';  // Import the URL module for validation
   // Displays a simple message to the user
   app.get("/", (req, res) => {
     const exampleUrl = "https://upload.wikimedia.org/wikipedia/commons/b/bd/Golden_tabby_and_white_kitten_n01.jpg";
-    const encodedExampleUrl = encodeURIComponent(exampleUrl);
+    
+    const link = `${req.protocol}://${req.get('host')}/filteredimage?image_url=${exampleUrl}`;
 
-    const link = `${req.protocol}://${req.get('host')}/filteredimage?image_url=${encodedExampleUrl}`;
+    res.send(`try GET /filteredimage?image_url={{}}`);
+});
 
-    res.send(`try GET /filteredimage?image_url={{}}</br>try <a target="_blank" href="${link}">GET /filteredimage?image_url=${exampleUrl}</a>`);
-  });
 
 
 
