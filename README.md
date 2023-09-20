@@ -39,6 +39,7 @@ The application is deployed on AWS using the following services:
 ### AWS CloudFront
 
 - **Distribution URL**: [https://d1ab9ie6mra76b.cloudfront.net](https://d1ab9ie6mra76b.cloudfront.net)
+- **Test URL**: [https://d1ab9ie6mra76b.cloudfront.net/filteredimage?image_url=https://upload.wikimedia.org/wikipedia/commons/b/bd/Golden_tabby_and_white_kitten_n01.jpg](https://d1ab9ie6mra76b.cloudfront.net/filteredimage?image_url=https://upload.wikimedia.org/wikipedia/commons/b/bd/Golden_tabby_and_white_kitten_n01.jpg)
 
 ### Deployment steps
 
